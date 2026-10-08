@@ -1,0 +1,24 @@
+{
+  "name": "daichi-slides",
+  "version": "1.0.0",
+  "description": "Unofficial Daichi brand adaptation of dads-slides",
+  "main": "scripts/build_deck.js",
+  "scripts": {
+    "check": "node --check scripts/build_deck.js",
+    "test:layout": "node scripts/test_layout.js"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "jszip": "3.10.2",
+    "pptxgenjs": "4.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-icons": "5.7.0",
+    "sharp": "0.35.5"
+  },
+  "private": true,
+  "overrides": {
+    "image-size": "2.0.4"
+  }
+}

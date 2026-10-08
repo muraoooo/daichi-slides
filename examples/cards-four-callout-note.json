@@ -1,0 +1,50 @@
+{
+  "title": "オプションと配置分岐の検証",
+  "slides": [
+    {
+      "type": "cards",
+      "heading": "相談の三つの材料",
+      "items": [
+        {
+          "icon": "MdGroups",
+          "title": "聞き手",
+          "body": "初心者に向けて伝える",
+          "bullets": [
+            "難しい言葉を短く説明する"
+          ]
+        },
+        {
+          "icon": "MdSearch",
+          "title": "目的",
+          "body": "今日の困りごとを一つ選ぶ",
+          "bullets": [
+            "使う場面を具体的に書く"
+          ],
+          "emphasis": true
+        },
+        {
+          "icon": "MdDescription",
+          "title": "素材",
+          "body": "伝えたい内容を用意する",
+          "bullets": [
+            "名前や秘密を先に除く"
+          ]
+        },
+        {
+          "icon": "MdForum",
+          "title": "確認",
+          "body": "迷った点を相談する",
+          "bullets": [
+            "短い説明を添える"
+          ]
+        }
+      ],
+      "callout": {
+        "icon": "MdInfo",
+        "text": "説明は短く、確認は丁寧に"
+      },
+      "note": "この資料はQA用の例です",
+      "notes": "QA-VARIANT：cards-4-grid"
+    }
+  ]
+}

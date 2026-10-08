@@ -1,0 +1,121 @@
+{
+  "title": "ダイチブランド スライド見本",
+  "footer": "ダイチ｜AIレスキュー隊",
+  "fontFace": "Noto Sans CJK JP",
+  "fontMono": "Menlo",
+  "slides": [
+    {
+      "type": "cards",
+      "heading": "4枚カードの表示",
+      "items": [
+        {
+          "title": "項目1",
+          "body": "短い説明を添えます。",
+          "emphasis": true
+        },
+        {
+          "title": "項目2",
+          "body": "短い説明を添えます。",
+          "emphasis": false
+        },
+        {
+          "title": "項目3",
+          "body": "短い説明を添えます。",
+          "emphasis": false
+        },
+        {
+          "title": "項目4",
+          "body": "短い説明を添えます。",
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "type": "numbered",
+      "heading": "補足箇条書き",
+      "items": [
+        {
+          "title": "出典を残す"
+        },
+        {
+          "title": "表示を確認する"
+        }
+      ],
+      "side": {
+        "title": "補足",
+        "bullets": [
+          "自分で判断する",
+          "必要な点を聞く"
+        ]
+      },
+      "callout": {
+        "icon": "MdInfo",
+        "text": "大切な点は、文字でも説明します。"
+      }
+    },
+    {
+      "type": "twoColumn",
+      "heading": "2列の箇条書き",
+      "columns": [
+        {
+          "title": "準備",
+          "bullets": [
+            "目的を決める",
+            "素材を集める"
+          ]
+        },
+        {
+          "title": "確認",
+          "bullets": [
+            "内容を確認する",
+            "見た目を確認する"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "summary",
+      "heading": "8項目のまとめ",
+      "items": [
+        "確認項目1を見直す",
+        "確認項目2を見直す",
+        "確認項目3を見直す",
+        "確認項目4を見直す",
+        "確認項目5を見直す",
+        "確認項目6を見直す",
+        "確認項目7を見直す",
+        "確認項目8を見直す"
+      ],
+      "source": "表示確認用"
+    },
+    {
+      "type": "table",
+      "heading": "数値を右寄せする表",
+      "columns": [
+        "項目",
+        "枚数"
+      ],
+      "rows": [
+        [
+          "表紙",
+          "1"
+        ],
+        [
+          "章扉",
+          "1"
+        ],
+        [
+          "本文",
+          "6"
+        ],
+        [
+          "まとめ",
+          "1"
+        ]
+      ],
+      "alignRight": [
+        1
+      ]
+    }
+  ]
+}

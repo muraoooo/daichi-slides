@@ -1,81 +1,80 @@
-# dads-slides
+# daichi-slides
 
-資料や URL の内容を整理・構造化してから、[デジタル庁デザインシステム（DADS）](https://design.digital.go.jp/dads/)のルールに沿った PowerPoint（.pptx）スライドを Claude に作ってもらうための [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) です。
+ダイチ｜AIレスキュー隊の6色で、資料・URL・会話を編集可能なPowerPointへまとめる非公式ブランド版スキルです。元の [dads-slides](https://github.com/seiji1097g-cell/dads-slides) の9型とDADS由来の余白を活かし、配色と文字サイズを改変しています。デジタル庁や元作者の公式版ではありません。
 
-![このスキルで作ったスライドの例](sample.png)
-
-> [!NOTE]
-> 本スキルは個人が作成した非公式のツールです。デジタル庁とは関係なく、デジタル庁の公式ツールではありません。
-
-## できること
-
-「この資料を DADS でスライドにして」と頼むと、Claude が次の順に進めます。
-
-1. 素材（URL・添付ファイル・会話の内容）を読む
-2. 目的・聞き手・キーメッセージを決め、1枚1メッセージの構成案を作る（作る前に確認を求めます）
-3. 構成案を `deck.json` にまとめる
-4. 同梱のビルダーで .pptx を書き出す（色・文字・余白は DADS のトークンで描画）
-5. 文字のはみ出しを推定し、画像にして目で確認する
-
-見た目はビルダーが DADS のルールで決めるので、Claude は「何をどの型で見せるか」に集中します。
-
-| 型 | 使いどころ |
-|---|---|
-| `title` / `section` / `summary` | 表紙・章の区切り・まとめ（濃い青の背景） |
-| `stats` | 押さえるべき数値 2〜4 個 |
-| `cards` | 並列の項目 2〜4 個 |
-| `steps` | 順番のある手順 3〜5 個 |
-| `twoColumn` | 2 つの話題の対比、例文・コードつき |
-| `numbered` | 優先順位のある項目＋補足カード |
-| `table` | 行と列で比べるデータ |
-
-実装している主な DADS のルール：キーカラー Blue-900、書体 Noto Sans JP、8px グリッド、最小文字サイズ 14px、文字のコントラスト比 4.5:1 以上、カードは背景色と外周線を持つ、アイコンは必ず文字と組み合わせる、など。
-
-## 必要なもの
-
-- コードを実行できる Claude（claude.ai のコード実行・ファイル作成を有効にした状態、または Claude Code）
-- 作業環境に Node.js（npm パッケージ `pptxgenjs` `react-icons` `react` `react-dom` `sharp` は Claude が入れます）
-- 仕上がりを画像で確認するために LibreOffice（あれば）
-- スライドを開く PC に Noto Sans JP / Noto Sans Mono（[Google Fonts](https://fonts.google.com/noto/specimen/Noto+Sans+JP) から無料で入手できます）
-
-## インストール
-
-### claude.ai
-
-1. [Releases](../../releases) から `dads-slides.zip` をダウンロードします。
-   - 緑の「Code」ボタンの「Download ZIP」は、フォルダ名が `…-main` になるためアップロードできません。
-2. claude.ai で **Customize → Skills** を開き、「+」→「Create skill」→「Upload a skill」から ZIP をアップロードします。
-
-### Claude Code
-
-スキルのフォルダに clone します（このリポジトリの URL は「Code」ボタンからコピーできます）。
-
-```bash
-git clone <このリポジトリのURL> ~/.claude/skills/dads-slides
-```
+![ダイチブランド版の9型](sample.png)
 
 ## 使い方
 
-Claude にこう頼みます。
+Codexで `$daichi-slides` を指定して頼みます。
 
-- 「この PDF を DADS でスライドにして」
-- 「このページ（URL）の内容を、デジタル庁デザインシステムでパワポにまとめて」
-- 「今の会話の内容を DADS のスライド 8 枚くらいにして」
+- 「このPDFをダイチ配色で5枚のスライドにして」
+- 「今の会話を初心者向けのスライド8枚にして」
+- 「この資料をピンクの強調、PDFで納品して」
 
-## しくみ
+ユーザー指定の形式・総枚数・色・順番を優先します。表紙や全9型を強制しません。通常は構成案で承認待ちせず、生成・検証まで進めて完成PPTXを提示します。事前確認を明示された場合はその指定に従います。
 
-このスキルは `SKILL.md` 1 ファイルでできています。スライドを描くビルダー（`build_deck.js`）は `SKILL.md` の末尾に入っていて、Claude が作業フォルダに書き出して実行します。
+## 配色
+
+| 役割 | 色 |
+|---|---|
+| 白い背景・カード | `#FFFFFF` |
+| ソフト背景 | `#F7F9FA` |
+| 主アクセントのピンク | `#D98FA3` |
+| 補助アクセントのブルー | `#7FD6D0` |
+| 見出し・意味のある輪郭 | `#1F3552` |
+| 本文・出典 | `#111111` |
+
+白系背景を土台に、ピンクは強調の面や飾り、ブルーは手順番号やアイコンの面に使います。文字はネイビーまたは黒。ピンク・ブルーの文字を白地に置かず、その面に白文字を置きません。標準の文字／背景の最小比率は4.98:1です。
+
+## 9種類の型
+
+| 型 | 使用場面 |
+|---|---|
+| `title` | 白い表紙 |
+| `section` | ソフト背景の章扉 |
+| `stats` | 数値2〜4個 |
+| `cards` | 並列項目2〜4個、4個は2×2 |
+| `steps` | 順番のある手順3〜5個 |
+| `twoColumn` | 2列の対比、コード・例文 |
+| `numbered` | 番号付き項目と補足 |
+| `table` | 編集可能な比較表 |
+| `summary` | ソフト背景のまとめ、3〜8項目 |
+
+初期サイズは表紙42pt、見出し30pt、本文21pt、補足15pt。フォントはNoto Sans JP / Noto Sans Monoを基本とし、利用環境の実在フォントへ変更できます。
+
+## 表と4カードの文字量
+
+表の目安は本文6行・4列ですが、各セルの折返し込みで判定します。補足欄・注記・リードなしの短い1行セルなら、見出しを含め7行×64pxで収まります。4等分の列へ23字程度の日本語を各セルに入れる6行表は拒否します。列幅は合計1152pxで指定します。
+
+4カード＋補足欄＋注記（リードなし）では、21ptを保ち、カードの内余白12px・項目間6pxで配置します。各カードに短い1行見出し・1行body・1行箇条書き1件が目安です。折返しやリード追加で収まらなければ生成前に停止します。bodyと箇条書きを統合するか、詳細をノートへ移します。
+
+実例は `examples/table-six-short.json` と `examples/cards-four-callout-note.json`、拒否例は `examples/table-six-wrapped.json`。どの文字量でも収まる保証ではなく、実表示の確認を続けます。
+
+## 実行と依存
+
+Node.js 20.9以降とnpmが必要です。PPTX生成はPptxGenJS、アイコン生成はreact-icons・React・react-dom・sharp、内部参照整理はJSZipを使います。バージョンは `package-lock.json` に固定しています。画像処理の間接依存 `image-size` は2.0.4へ固定。共有プロジェクトへ依存を入れず、この専用コピーまたは別の制作フォルダーで実行してください。
+
+```sh
+npm ci
+node --check scripts/build_deck.js
+node scripts/build_deck.js examples/demo.json demo.pptx
+```
+
+表・カードはセルや本文の折返し、余白、利用可能な高さを検査します。収まらない場合は終了コード2で生成前に停止し、PPTX出力先を更新しません。他の推定警告や不明アイコンでは終了コード2でレビュー用の未確定PPTXを残します。どちらも納品用として扱いません。推定だけで納品せず、画像化して確認します。デモ入力は実描画を確認したNoto Sans CJK JP / Menloを指定しています。標準フォントを使う場合は入力の `fontFace` / `fontMono` を変更します。
+
+LibreOffice・pdftoppmがあれば画像化できます。環境の描画フォントが不足する場合は [ローカル描画の手順](references/local-rendering.md) を参照してください。
+
+## ローカル導入
+
+Codexの `~/.codex/skills/daichi-slides/` に `SKILL.md`、`LICENSE`、`scripts/`、`references/`、`agents/`、`package.json`、`package-lock.json` を配置します。この作業でローカル導入済みです。今開いている別チャットがスキル一覧を更新しない場合は新しいチャットで `$daichi-slides` を指定するか、このSKILL.mdのパスを渡します。
+
+`SKILL.md` 末尾にも同じビルダーを埋め込んでいます。更新時は `scripts/build_deck.js` と同期してください。GitHubへの公開・push・forkは行っていません。
 
 ## ライセンスと出典
 
-- `SKILL.md`（中のコードを含む）とこの README：[MIT License](LICENSE)
-- `SKILL.md` の「DADS ルール」と、ビルダーの色・文字サイズなどの値は、デジタル庁デザインシステムの内容をもとにしています。
-  - 出典：デジタル庁デザインシステムウェブサイト https://design.digital.go.jp/dads/
-  - デジタル庁デザインシステムウェブサイトのコンテンツを加工して作成しています（デジタル庁の[コピーライトポリシー](https://www.digital.go.jp/copyright-policy)に基づく利用）。
-- 作ったスライドを公開するときは、デジタル庁が作成した資料だと誤解されないようにしてください。DADS の利用条件は[利用上の注意事項](https://design.digital.go.jp/dads/introduction/notices/)を確認してください。
-- アイコンは [react-icons](https://github.com/react-icons/react-icons) 経由で Material Design Icons（Apache License 2.0）を使います。npm パッケージとフォントはこのリポジトリには含まれていません。
-
-## 姉妹スキル
-
-- [yukkuri-reimu-marisa-videos](https://github.com/seiji1097g-cell/yukkuri-reimu-marisa-videos)：霊夢と魔理沙の「ゆっくり解説風」動画を作る
-- [creating-yukkuri-videos](https://github.com/seiji1097g-cell/creating-yukkuri-videos)：オリジナルキャラ「こむぎ」「あずき」の「ゆっくり解説風」動画を作る
+- 元コード：Copyright (c) 2026 IT navi、[MIT License](LICENSE)。著作権表示と許諾本文を保持しています。
+- 基準コミット：[51ede47f9b1fea3dbfe68388ce85c7f0776bb261](https://github.com/seiji1097g-cell/dads-slides/tree/51ede47f9b1fea3dbfe68388ce85c7f0776bb261)。
+- 出典：[デジタル庁デザインシステムウェブサイト](https://design.digital.go.jp/dads/)。コンテンツを加工して作成しています。配色と文字サイズはダイチ用に変更しているためDADS準拠を称しません。
+- [デジタル庁コピーライトポリシー](https://www.digital.go.jp/copyright-policy)、[DADS利用上の注意事項](https://design.digital.go.jp/dads/introduction/notices/)。公開資料をデジタル庁作成や元作者公認と誤認させないでください。
+- アイコン：[react-icons](https://github.com/react-icons/react-icons) 経由のMaterial Design Icons（Apache 2.0）。依存パッケージとフォント自体はスキル配布物に同梱しません。
